@@ -9,6 +9,30 @@ const together = new Together({
 	apiKey: env.TOGETHER_API_KEY || ''
 });
 
+export const GET: RequestHandler = async () => {
+	return json({
+		message: 'THH-AI API Endpoint',
+		description: 'Bu endpoint sadece POST metodunu destekler',
+		endpoints: {
+			'/api/analyze': {
+				method: 'POST',
+				description: 'Tüketici başvurusu veya hakem analizi için kullanılır',
+				body: {
+					userType: 'tuketici | hakem',
+					city: 'string (sadece tüketici için)',
+					amount: 'number (sadece tüketici için)',
+					story: 'string (sadece tüketici için)',
+					applicationText: 'string (sadece hakem için)',
+					disputeSubject: 'string (sadece hakem için)',
+					conversationHistory: 'array (opsiyonel)'
+				}
+			}
+		},
+		status: 'active',
+		version: '1.0.0'
+	});
+};
+
 export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const body = await request.json();
